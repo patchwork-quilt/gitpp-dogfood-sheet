@@ -1,6 +1,6 @@
 # Changelog
 
-## 2026-10-26 — the override episode: a terser join
+## 2026-10-26 — the override episode: a terser join (PR #1; merge run 40394845252)
 
 `join.summary`'s template drops its `A:` / `B:` labels — the lane
 structure already says which report is which. The change is made the

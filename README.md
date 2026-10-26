@@ -45,6 +45,10 @@ The referenced inner sheet stays a **reference by name**: `word-frame`'s own rec
 
 **Changing a cell.** A definition is never edited in place. To change one cell, land a new record that sets that cell's `.def` key: an `override`-kind record wins by class, and a `task`-kind record that *descends from* the cell's record — it saw the definition and built on it — wins by ancestry. The fold reports the contest (winner and losers, by name), the superseded definition stays in the record set and in git history, and removing the new record restores the original exactly. Nothing is mutated; everything is superseded or restored by re-derivation.
 
+### The override episode
+
+That mechanism is not hypothetical here — it happened, in the open. [PR #1](https://github.com/patchwork-quilt/gitpp-dogfood-sheet/pull/1) landed exactly one record, `cell-join-summary-2` (kind `task`, parent `cell-join.summary`), redefining `join.summary`'s template from `A: {{first}} | B: {{second}}` to the terser `{{first}} | {{second}}` — the lane structure already says which report is which. The merge derivation (run [40394845252](https://github.com/patchwork-quilt/gitpp-dogfood-sheet/actions/runs/40394845252), below) reported **7 records · 20 keys · 1 conflict · 0 orphans**: the conflict on `cell.join.summary.def` names winner `cell-join-summary-2` and loser `cell-join.summary`, "the winner descends from it", and a mechanical diff against the pre-episode state shows **exactly one key changed** — the other nineteen identical. The Action's state equals the local fold's on all 20 keys; `tools/expected-fold.json` carries the post-episode expectation, so `tools/check.sh` proves the current record set on every push. Delete `cell-join-summary-2.json` (restoring the prior expectation) and the original template returns: nothing was ever edited.
+
 ## Derivation runs
 
 Every push re-derives. The runs that changed — or first proved — the state:
@@ -52,6 +56,8 @@ Every push re-derives. The runs that changed — or first proved — the state:
 | Run | Commit | Records · Keys · Conflicts · Orphans | What it showed |
 |---|---|---|---|
 | [40361763003](https://github.com/patchwork-quilt/gitpp-dogfood-sheet/actions/runs/40361763003) | `c9e333c` | 6 · 20 · 0 · 0 | First derivation. The Action's state matched an independent local fold of the same records on **20/20 keys**, and matched the prediction the README of the day had written before the run. One nuance, recorded rather than smoothed: the report's qualifications line carries a fourth, glossary sentence in the v0.3.1 renderer that the prediction's quote did not include; no derived value was affected. |
+| [40394631191](https://github.com/patchwork-quilt/gitpp-dogfood-sheet/actions/runs/40394631191) | `16a5b86` | 6 · 20 · 0 · 0 | The project-furniture push: the records did not change, and CI re-derived the identical state; the new records-check workflow (run 40394631371) passed alongside. |
+| [40394845252](https://github.com/patchwork-quilt/gitpp-dogfood-sheet/actions/runs/40394845252) | `8f84da8` | 7 · 20 · 1 · 0 | The override episode (merge of PR #1). `cell-join-summary-2` superseded `join.summary`'s template; the conflict names winner and loser, and exactly one of the 20 derived keys changed. The records check (run 40394845305) passed on the same push. |
 
 ## Honest limits
 
