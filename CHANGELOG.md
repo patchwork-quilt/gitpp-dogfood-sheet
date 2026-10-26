@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-10-26 — the override episode: a terser join
+
+`join.summary`'s template drops its `A:` / `B:` labels — the lane
+structure already says which report is which. The change is made the
+git.pp way, by landing one record and changing nothing else:
+
+- `.gitpp/records/cell-join-summary-2.json` (kind `task`, parent
+  `cell-join.summary`) sets only `cell.join.summary.def`, to
+  `{"template": "{{first}} | {{second}}"}`. It descends from the
+  record it redefines, so it wins by ancestry; the original record
+  is untouched and remains in the set as the named loser.
+- `tools/expected-fold.json` updated to the post-episode fold:
+  still 20 keys, exactly one changed, one conflict
+  (`cell.join.summary.def` — winner `cell-join-summary-2`, loser
+  `cell-join.summary`), no orphans.
+- Removing the new record file restores the original template
+  exactly — supersession, not mutation.
+
 ## 2026-10-26 — a complete project
 
 The repo grows from a records stub into the project those records

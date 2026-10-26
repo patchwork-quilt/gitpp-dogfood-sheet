@@ -1,0 +1,12 @@
+{
+  "effects": {
+    "cell.join.summary.def": {
+      "template": "{{first}} | {{second}}"
+    }
+  },
+  "id": "cell-join-summary-2",
+  "kind": "task",
+  "parents": [
+    "cell-join.summary"
+  ]
+}

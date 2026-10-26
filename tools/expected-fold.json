@@ -1,12 +1,21 @@
 {
-  "conflicts": [],
+  "conflicts": [
+    {
+      "key": "cell.join.summary.def",
+      "losers": [
+        "cell-join.summary"
+      ],
+      "winner": "cell-join-summary-2"
+    }
+  ],
   "order": [
     "sheet-sheet-reused",
     "cell-input.a",
     "cell-input.b",
     "cell-use.first",
     "cell-use.second",
-    "cell-join.summary"
+    "cell-join.summary",
+    "cell-join-summary-2"
   ],
   "orphans": [],
   "state": {
@@ -21,7 +30,7 @@
     "cell.input.b.inputs": {},
     "cell.input.b.kind": "value",
     "cell.join.summary.def": {
-      "template": "A: {{first}} | B: {{second}}"
+      "template": "{{first}} | {{second}}"
     },
     "cell.join.summary.inputs": {
       "first": "use.first",
