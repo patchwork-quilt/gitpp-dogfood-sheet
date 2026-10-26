@@ -1,0 +1,9 @@
+name: records check
+on: [push]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Regenerate the records and re-fold them; both must match the committed artefacts
+        run: sh tools/check.sh
