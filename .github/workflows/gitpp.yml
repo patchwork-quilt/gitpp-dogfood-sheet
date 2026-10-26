@@ -1,0 +1,11 @@
+name: git.pp state
+on: [push]
+jobs:
+  gitpp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: patchwork-quilt/gitpp-action@v0.3.1
+        with:
+          records-dir: .gitpp/records
+          project: sheet-reused
